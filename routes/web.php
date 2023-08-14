@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    // return view('home');
+    return view('home')->with('username', 'Isha');
 });
 Route::get('/form', function () {
     return view('form');
