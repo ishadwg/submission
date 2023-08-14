@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
-
-Route::get('/post', function () {
-        return '<h1>This in "Post" page.</h1>';
+Route::get('/form', function () {
+    return view('form');
 });
