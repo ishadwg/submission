@@ -12,6 +12,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home')->with('username', 'Isha');
+        $submissions = Submission::latest()->get();
+
+        // return view('home')->with('username', 'Isha');
+        return view('home', ['records' => $submissions]);
     }
 }

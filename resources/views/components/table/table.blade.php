@@ -25,7 +25,6 @@
             </tr>
         </thead>
 
-        <x-table.table-body></x-table.table-body>
-
+        <x-table.table-body :records="$records"></x-table.table-body>
     </table>
 </div>
