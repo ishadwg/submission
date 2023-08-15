@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('home');
-    return view('home')->with('username', 'Isha');
-});
+Route::get('/', [HomeController::class, 'index']);
+
 Route::get('/form', function () {
     return view('form');
 });
