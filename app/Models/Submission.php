@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Status extends Model
+class Submission extends Model
 {
     use HasFactory;
 
-    // Class constants
-    public const PENDING = ['id' => 1, 'name' => 'Pending'];
-    public const APPROVED = ['id' => 2, 'name' => 'Approved'];
-    public const REJECTED = ['id' => 3, 'name' => 'Rejected'];
-
-    public function submissions(): HasMany
+    public function user(): BelongsTo
     {
-        return $this->hasMany(Submission::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class);
     }
 
     public function histories(): HasMany

@@ -27,8 +27,8 @@
                 <div class="mb-4">
                     <label for="submitter" class="block text-gray-700 text-sm font-medium mb-1">Submitter</label>
                     <input type="text" id="submitter" name="submitter"
-                        class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-200" value="UserA"
-                        disabled required>
+                        class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-200" value="UserA" disabled
+                        required>
                 </div>
                 <div class="mb-4">
                     <label for="status" class="block text-gray-700 text-sm font-medium mb-1">Status</label>

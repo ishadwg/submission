@@ -2,12 +2,10 @@
 
 {{-- Script --}}
 @section('script')
-
 @endsection
 
 {{-- Stylesheet --}}
 @section('stylesheet')
-
 @endsection
 
 {{-- Section --}}
