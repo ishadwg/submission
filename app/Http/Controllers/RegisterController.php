@@ -14,14 +14,12 @@ class RegisterController extends Controller
 
     public function store()
     {
-        $attributes = request()->validate(
-            [
-                'name' => 'required|max:255',
-                'email' => 'required|email|max:255|unique:users,email',
-                'password' => 'required|max:255|min:7',
-                'password_confirmation' => 'required|same:password',
-            ]
-        );
+        $attributes = request()->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|max:255|min:7',
+            'password_confirmation' => 'required|same:password',
+        ]);
 
         $user = new User();
         $user->name = $attributes['name'];
@@ -30,6 +28,6 @@ class RegisterController extends Controller
         $user->role = 'Submitter';
         $user->save();
 
-        return redirect('/home');
+        return redirect('/home')->with('success', 'Your account has been created.');
     }
 }
