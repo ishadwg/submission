@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSubmissionRequest;
 use App\Models\Status;
 use App\Models\Submission;
-use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class SubmissionController extends Controller
 {
@@ -36,7 +37,18 @@ class SubmissionController extends Controller
             'status_id' => Status::PENDING['id']
         ])->all();
 
-        Submission::create($validated);
+        DB::transaction(function () use ($validated) {
+            // create new submission
+            $submission = Submission::create($validated);
+
+            // create related history record with Pending status
+            $submission->histories()->create([
+                'user_id' =>  auth()->user()->id,
+                'status_id' => Status::PENDING['id'],
+                'comments' => 'This is generated for ' . Status::PENDING['name'] . ' status.',
+            ]);
+        });
+
 
         return redirect('/home')->with('success', 'Submission created!');
     }
@@ -46,34 +58,33 @@ class SubmissionController extends Controller
      */
     public function show(string $id)
     {
-        // select berdasarkan id
-        // data dilempar ke view
         $record = Submission::find($id);
 
         return view('submission.show', ['record' => $record]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function approval(Submission $submission)
     {
-        //
-    }
+        $status = Str::contains(request()->url(), 'reject') ?
+            Status::REJECTED : (Str::contains(request()->url(), 'approve') ?
+                Status::APPROVED : null
+            );
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        DB::transaction(function () use ($submission, $status) {
+            // create related history record
+            $submission->histories()->create([
+                'user_id' =>  auth()->user()->id,
+                'status_id' => $status['id'],
+                'comments' => "This is generated for {$status['name']} status.",
+            ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            // update status field in submission
+            $submission->status_id = $status['id'];
+            $submission->save();
+        });
+
+
+        return redirect('/home')
+            ->with('success', "The Submission ID#{$submission->id} has been " . strtolower($status['name']));
     }
 }

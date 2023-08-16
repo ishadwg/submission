@@ -22,8 +22,8 @@ class StoreSubmissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|in:Leave, Permit,Sick',
-            'attachment' => 'required|file|max:200|mimetypes:image/jpeg,image/jpg,image/png'
+            'type' => 'required|in:Leave,Permit,Sick',
+            'attachment' => 'required|file|max:200|mimetypes:image/jpeg,image/png,image/gif',
         ];
     }
 }

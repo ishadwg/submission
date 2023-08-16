@@ -18,7 +18,8 @@
                 </div>
                 <div class="mb-4">
                     <label for="attachment" class="block text-gray-700 text-sm font-medium mb-1">Attachment</label>
-                    <x-image src="{{ }}"></x-image>
+                    <x-image src="{{ asset($record->attachment) }}"></x-image>
+
                 </div>
                 <div class="mb-4">
                     <label for="submitter" class="block text-gray-700 text-sm font-medium mb-1">Submitter</label>
@@ -35,4 +36,8 @@
             </form>
         </div>
     </section>
+
+    <x-card.card-table class="max-w-xl mx-auto p-6 bg-blue-200" :recenthistories="$record->histories">
+        Submission ID#{{ $record->id }}'s Approval
+    </x-card.card-table>
 @endsection

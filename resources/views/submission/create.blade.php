@@ -11,8 +11,8 @@
                     <select id="type" name="type"
                         class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-200" required>
                         <option value="Leave">Leave</option>
-                        <option value="Approved">Permit</option>
-                        <option value="Rejected">Sick</option>
+                        <option value="Permit">Permit</option>
+                        <option value="Sick">Sick</option>
                     </select>
                     @error('type')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
