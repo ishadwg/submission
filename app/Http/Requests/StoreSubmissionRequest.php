@@ -23,7 +23,7 @@ class StoreSubmissionRequest extends FormRequest
     {
         return [
             'type' => 'required|in:Leave, Permit,Sick',
-            'attachment' => 'required|file|max:200|mimetypes:image/jpeg,image/jpg'
+            'attachment' => 'required|file|max:200|mimetypes:image/jpeg,image/jpg,image/png'
         ];
     }
 }

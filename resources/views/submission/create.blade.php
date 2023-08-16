@@ -4,13 +4,13 @@
     <section class="py-6">
         <div class="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg">
             <h2 class="text-2xl font-semibold mb-4">Create Submission</h2>
-            <form action="/submissions" method="POST">
+            <form action="/submissions" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-4">
                     <label for="type" class="block text-gray-700 text-sm font-medium mb-1">Type</label>
                     <select id="type" name="type"
                         class="w-full px-4 py-2 border rounded-lg focus:ring focus:ring-indigo-200" required>
-                        <option value="Pending">Leave</option>
+                        <option value="Leave">Leave</option>
                         <option value="Approved">Permit</option>
                         <option value="Rejected">Sick</option>
                     </select>

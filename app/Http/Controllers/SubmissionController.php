@@ -29,7 +29,12 @@ class SubmissionController extends Controller
      */
     public function store(StoreSubmissionRequest $request)
     {
-        Submission::create($request->validated());
+        // dd($request->validated());
+
+        // $a = $request->validated();
+        // $b = $a->array_merge()
+        //dd($request->safe()->merge(['user_id' => auth()->user()->id, 'status_id' => 1])->all());
+        Submission::create($request->safe()->merge(['user_id' => auth()->user()->id, 'status_id' => 1])->all());
 
         return redirect('/home')->with('success', 'Submission created!');
     }
