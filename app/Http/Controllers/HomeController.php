@@ -27,4 +27,9 @@ class HomeController extends Controller
             'recenthistories' => $recenthistories,
         ]);
     }
+
+    public function welcome()
+    {
+        return view('welcome');
+    }
 }
