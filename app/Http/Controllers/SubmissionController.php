@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubmissionRequest;
+use App\Models\Status;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 
@@ -29,12 +30,13 @@ class SubmissionController extends Controller
      */
     public function store(StoreSubmissionRequest $request)
     {
-        // dd($request->validated());
+        $validated = $request->safe()->merge([
+            'attachment' => $request->attachment->store('attachments'),
+            'user_id' => auth()->user()->id,
+            'status_id' => Status::PENDING['id']
+        ])->all();
 
-        // $a = $request->validated();
-        // $b = $a->array_merge()
-        //dd($request->safe()->merge(['user_id' => auth()->user()->id, 'status_id' => 1])->all());
-        Submission::create($request->safe()->merge(['user_id' => auth()->user()->id, 'status_id' => 1])->all());
+        Submission::create($validated);
 
         return redirect('/home')->with('success', 'Submission created!');
     }
@@ -44,7 +46,11 @@ class SubmissionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // select berdasarkan id
+        // data dilempar ke view
+        $record = Submission::find($id);
+
+        return view('submission.show', ['record' => $record]);
     }
 
     /**
